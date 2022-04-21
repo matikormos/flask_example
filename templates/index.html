@@ -1,10 +1,17 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Tutorial Flask: Miniblog</title>
-</head>
-<body>
-    {{ num_posts }} posts
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} My first Flask app {% endblock %}</h1>
+    {% for post in posts %} <!-- Insert many titles as there in database -->
+        <a href={{ url_for('post', post_id=post['id']) }}><!-- Insert link in titles -->
+            <h2>{{ post['title'] }}</h2>
+        </a>
+        <span class="badge badge-primary">{{ post['created'] }}</span>
+        <a href="{{ url_for('edit', id=post['id']) }}">
+            <span class="badge badge-warning">Edit</span>
+        </a>
+        <hr>
+    {% endfor %}
+{% endblock %}
+
+<!-- url_for (function, arg of the function) return a URL -->
